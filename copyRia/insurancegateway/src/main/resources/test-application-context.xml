@@ -1,0 +1,225 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.luxottica.ria" />
+    <!-- DATA SOURCE -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@usaldblxt048.luxgroup.net:1521:RTINSDEV"/>
+        <property name="username" value="RIA_APP"/>
+        <property name="password" value="ria_app_dev"/>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- DAO -->
+    <bean id="tLSequenceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.TLSequenceDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tLSequenceGUIDMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.TLGUIDDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="cfgOperationDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.CfgOperationDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="cfgInsuranceSystemDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.CfgInsuranceSystemDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlSessionDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.TlSessionDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="elMemberDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ElMemberDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="elEligibilityDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ElEligibilityDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="pricingDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.PricingDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="cfgProviderClassDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.CfgProviderClassDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlArticleDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ArticleDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlProviderDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ProviderDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlProviderLocationDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ProviderLocationDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlPradDataDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.PradDataDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="tlBenefitCategoryDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.BenefitCategoryDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="dssignmentPatientInfoDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.AssignmentPatientInfoDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="diseaseCodeDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.DiseaseCodeDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="globalDiscountDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.GlobalDiscountDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="modifiersDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.ModifiersDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="retailLineItemDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.RetailLineItemDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="prescriptionEyeDetailDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.PrescriptionEyeDetailDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="jobLogDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.JobLogDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="siteDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" >
+        <property name="mapperInterface" value="com.luxottica.ria.persistence.dao.SiteDAO" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <!-- Job loader for prad data from csv file -->
+    <bean name="pradDataJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.luxottica.ria.services.utility.schedule.PradDataLoaderJob" />
+        <property name="durability" value="true" />
+    </bean>
+    <bean id="pradDataCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="pradDataJob" />
+        <!--  <property name="cronExpression" value="0 0/5 * ? 1-12 1-7" /> -->
+        <property name="cronExpression" value="0 0 0/6 ? 1-12 1-7" />
+    </bean>
+
+    <!-- Job caller for article stored procedure -->
+    <bean name="articleDataJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.luxottica.ria.services.utility.schedule.ArticleDataJob" />
+        <property name="durability" value="true" />
+    </bean>
+    <bean id="articleDataCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="articleDataJob" />
+        <property name="cronExpression" value="0 0 1 ? 1-12 1-7" />
+    </bean>
+
+    <!-- Job caller for article stored procedure -->
+    <bean name="providerDataJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.luxottica.ria.services.utility.schedule.ProviderDataJob" />
+        <property name="durability" value="true" />
+    </bean>
+    <bean id="providerDataCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="providerDataJob" />
+        <property name="cronExpression" value="0 30 1 ? 1-12 1-7" />
+    </bean>
+
+    <!-- Scheduler factory bean to glue together jobDetails and triggers to Configure Quartz Scheduler -->
+    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- Quartz requires a separate 'quartz.properties' file -->
+        <property name="configLocation" value="classpath:quartz.properties"/>
+
+        <!-- Naturally, Quartz with the DB requires references
+              to the data source and transaction manager beans -->
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="txManager"/>
+
+        <!-- Boolean controlling whether you want to override
+              the job definitions in the DB on the app start up.
+              We'll talk about it more in the next section. -->
+        <property name="overwriteExistingJobs" value="true"/>
+
+        <!-- I will not explain the next three properties, just use it as shown: -->
+        <property name="autoStartup" value="true" />
+        <property name="schedulerName" value="quartzScheduler"/>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+
+        <!-- Controls whether to wait for jobs completion on app shutdown, we use 'true' -->
+        <property name="waitForJobsToCompleteOnShutdown" value="true"/>
+
+
+
+        <property name="jobDetails">
+            <list>
+                <ref bean="pradDataJob" />
+                <ref bean="articleDataJob" />
+                <ref bean="providerDataJob" />
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="pradDataCronTrigger" />
+                <ref bean="articleDataCronTrigger" />
+                <ref bean="providerDataCronTrigger" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- ADAPTERS -->
+    <!-- AS400 -->
+    <bean id="eye400FindRetailPlansAdapter" class="com.luxottica.ria.adapter.as400.command.AS400FindRetailPlansImpl" />
+    <bean id="eye400FindRetailMembersAdapter" class="com.luxottica.ria.adapter.as400.command.AS400FindRetailMembersImpl" />
+    <bean id="eye400GetRetailMemberAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailMemberImpl" />
+    <bean id="eye400GetRetailEligibilityAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailEligibilityImpl" />
+    <bean id="eye400GetRetailMemberBenefitsAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailBenefitsImpl" />
+    <bean id="eye400GetRetailAuthorizationAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailAuthorizationImpl" />
+    <bean id="eye400GetRetailPlanAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailPlanImpl" />
+    <bean id="eye400PriceClaimAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailBenefitPricingImpl" />
+    <bean id="eye400SubmitClaimAdapter" class="com.luxottica.ria.adapter.as400.command.AS400CreateRetailClaimImpl" />
+    <bean id="eye400GetRetailProviderClassesAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailProviderClassesImpl" />
+    <bean id="eye400GetRetailProviderIdAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailProviderIdImpl" />
+    <bean id="eye400GetRetailFlatBenefitsAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailFlatBenefitsImpl" />
+    <bean id="eye400GetRetailAetnaPlanCodesAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailAetnaPlanCodesImpl" />
+    <bean id="eye400GetRetailEnrollmentGroupsAdapter" class="com.luxottica.ria.adapter.as400.command.AS400GetRetailEnrollmentGroupsImpl" />
+    <bean id="eye400VoidRetailClaimAdapter" class="com.luxottica.ria.adapter.as400.command.AS400VoidRetailClaimImpl" />
+
+    <!-- FACETS -->
+    <bean id="facetsFindRetailMembersAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsFindRetailMembersImpl" />
+    <bean id="facetsGetRetailMemberAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsGetRetailMemberImpl" />
+    <bean id="facetsGetRetailEligibilityAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsGetRetailEligibilityImpl"/>
+    <bean id="facetsGetRetailMemberBenefitsAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsGetBenefitsImpl" />
+    <bean id="facetsPriceClaimAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsPriceClaimImpl" />
+    <bean id="facetsSubmitClaimAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsSubmitClaimImpl" />
+    <bean id="facetsGetEstimatedMOOPAdapter" class="com.luxottica.ria.adapter.facets.command.FacetsGetEstimatedMOOPImpl" />
+
+
+    <!-- AARP -->
+    <bean id="aarpFindRetailMembersAdapter" class="com.luxottica.ria.adapter.aarp.command.AarpFindRetailMembersImpl" />
+    <!-- AAA -->
+    <bean id="aaaFindRetailMembersAdapter" class="com.luxottica.ria.adapter.aaa.command.AAAFindRetailMembersImpl" />
+
+</beans>
+
